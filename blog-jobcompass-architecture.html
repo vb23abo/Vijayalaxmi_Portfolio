@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PY8CRG8WXZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PY8CRG8WXZ');
+  </script>
+    <title>JobCompass Architecture — Hybrid AI Agents and Deterministic Pipelines</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="How JobCompass separates adaptive AI agents from deterministic pipelines for scraping, matching, and safer application automation.">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+	  
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	    <div class="container">
+	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav nav ml-auto">
+	          <li class="nav-item"><a href="index.html#home-section" class="nav-link"><span>Home</span></a></li>
+	          <li class="nav-item"><a href="index.html#about-section" class="nav-link"><span>About</span></a></li>
+	          <li class="nav-item"><a href="index.html#experience-section" class="nav-link"><span>Experience</span></a></li>
+	          <li class="nav-item"><a href="index.html#education-section" class="nav-link"><span>Education</span></a></li>
+	          <li class="nav-item"><a href="index.html#skills-section" class="nav-link"><span>Skills</span></a></li>
+	          <li class="nav-item"><a href="index.html#projects-section" class="nav-link"><span>Projects</span></a></li>
+	          <li class="nav-item"><a href="index.html#blog-section" class="nav-link"><span>My Blog</span></a></li>
+	          <li class="nav-item"><a href="index.html#contact-section" class="nav-link"><span>Contact</span></a></li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+
+	  <section class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+          <div class="col-md-12 ftco-animate pb-5 mb-3 text-center">
+            <h1 class="mb-3 bread">Blog</h1>
+            <p class="breadcrumbs">
+              <span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span>
+              <span class="mr-2"><a href="index.html#blog-section">Blog <i class="ion-ios-arrow-forward"></i></a></span>
+              <span>JobCompass Architecture <i class="ion-ios-arrow-forward"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 ftco-animate">
+            <h2 class="mb-3">JobCompass Architecture: When to Use Agents vs Deterministic Pipelines</h2>
+            <p class="mb-4"><span class="mr-3">September 2026</span> · Vijayalaxmi Bhambure</p>
+
+            <p>
+              While building <a href="jobcompass.html">JobCompass</a>—an AI-powered career platform for UK tech job seekers—
+              the hardest design choice was not “which model to call.” It was deciding which parts of the product should
+              behave like adaptive agents and which parts must stay boring, testable, and deterministic.
+            </p>
+            <p>
+              <img src="images/image_1.jpg" alt="Architecture discussion visual placeholder" class="img-fluid">
+            </p>
+
+            <h2 class="mb-3 mt-5">The split</h2>
+            <p>
+              External career sites change layout, rate-limit aggressively, and present ATS forms in inconsistent ways.
+              Those workflows need agents that can inspect the page at runtime and recover from surprises.
+            </p>
+            <p>
+              Internal product concerns—login, job-match scoring, application status, analytics—are predictable.
+              They belong in FastAPI services with clear schemas, Celery jobs, Redis caching, and PostgreSQL as the source of truth.
+              Mixing both styles in one path made the system harder to debug and harder to trust.
+            </p>
+
+            <h2 class="mb-3 mt-5">Scraping with guardrails</h2>
+            <p>
+              The Playwright scraper agent ingests listings from company career sites, not only aggregator feeds.
+              Per-domain rate limiting and circuit breakers reduce the chance of being blocked; change detection
+              flags when a site’s structure drifts so failures surface as product signals instead of silent empty scrapes.
+            </p>
+
+            <h2 class="mb-3 mt-5">Human-in-the-loop application automation</h2>
+            <p>
+              Fully unsupervised “auto-apply” is brittle and often inappropriate. JobCompass reads ATS forms at runtime
+              without hard-coded site mappings, then enforces server-side confidence thresholds, daily caps, and mandatory
+              pause gates when a field looks sensitive or the model is unsure. The agent proposes; the user (or a strict policy) confirms.
+            </p>
+
+            <h2 class="mb-3 mt-5">Materialised match scoring</h2>
+            <p>
+              Match quality uses semantic similarity, keyword overlap, and seniority weighting. Scores are materialised
+              and updated with delta recomputation when profiles or listings change. That keeps list endpoints fast and
+              avoids recomputing the entire table on every request.
+            </p>
+
+            <h2 class="mb-3 mt-5">Reliability and privacy as product features</h2>
+            <p>
+              Interview prep uses an LLM with a template-based fallback so a model outage does not blank the feature.
+              For identity, I deliberately avoided approaches that pull GDPR special-category data and instead used
+              OAuth binding plus phone verification. Privacy constraints shaped the architecture as much as latency did.
+            </p>
+
+            <h2 class="mb-3 mt-5">What I’d tell another builder</h2>
+            <ul>
+              <li>Put agents only where the environment is adversarial or unstable.</li>
+              <li>Keep money-path and trust-path logic (auth, caps, audit trails) outside the agent loop.</li>
+              <li>Prefer materialised derived data when query patterns are read-heavy.</li>
+              <li>Ship LLM features with a non-LLM fallback from day one.</li>
+            </ul>
+            <p>
+              Demo clips, diagrams, and updates will land in the public hub:
+              <a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener">github.com/vb23abo/JobCompass-Public</a>.
+            </p>
+
+            <div class="tag-widget post-tag-container mb-5 mt-5">
+              <div class="tagcloud">
+                <a href="#" class="tag-cloud-link">Architecture</a>
+                <a href="#" class="tag-cloud-link">AI Agents</a>
+                <a href="#" class="tag-cloud-link">FastAPI</a>
+                <a href="#" class="tag-cloud-link">Playwright</a>
+                <a href="#" class="tag-cloud-link">JobCompass</a>
+              </div>
+            </div>
+            
+            <div class="about-author d-flex p-4 bg-dark">
+              <div class="bio mr-5">
+                <img src="images/me1.png" alt="Vijayalaxmi Bhambure" class="img-fluid mb-4">
+              </div>
+              <div class="desc">
+                <h3>Vijayalaxmi Bhambure</h3>
+                <p>
+                  Java full-stack engineer turned AI product developer. Writing about systems that keep agents useful
+                  without sacrificing reliability or user trust.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box ftco-animate">
+            	<h3 class="heading-sidebar">Related</h3>
+              <ul class="categories">
+                <li><a href="jobcompass.html">JobCompass project page</a></li>
+                <li><a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener">Public GitHub hub</a></li>
+                <li><a href="index.html#blog-section">All blog posts</a></li>
+              </ul>
+            </div>
+
+            <div class="sidebar-box ftco-animate">
+              <h3 class="heading-sidebar">Topics</h3>
+              <div class="tagcloud">
+                <a href="#" class="tag-cloud-link">agents</a>
+                <a href="#" class="tag-cloud-link">pipelines</a>
+                <a href="#" class="tag-cloud-link">matching</a>
+                <a href="#" class="tag-cloud-link">GDPR</a>
+                <a href="#" class="tag-cloud-link">Playwright</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ftco-footer ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Let's connect on</h2>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="https://www.linkedin.com/in/vijayalaxmi-bhambure" target="_blank" rel="noopener" aria-label="LinkedIn"><span class="icon-linkedin"></span></a></li>
+                <li class="ftco-animate"><a href="https://github.com/vb23abo" target="_blank" rel="noopener" aria-label="GitHub"><span class="icon-github"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.vijayalaxmi.bhambure.com" target="_blank" rel="noopener" aria-label="Portfolio website"><span class="icon-globe"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Links</h2>
+              <ul class="list-unstyled">
+                <li><a href="index.html#home-section"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="index.html#about-section"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
+                <li><a href="index.html#projects-section"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
+                <li><a href="index.html#blog-section"><span class="icon-long-arrow-right mr-2"></span>Blog</a></li>
+                <li><a href="index.html#contact-section"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Glasgow, United Kingdom</span></li>
+	                <li><a href="tel:+447392763018"><span class="icon icon-phone"></span><span class="text">+44 7392 7630 18</span></a></li>
+	                <li><a href="mailto:bhamburevijayalaxmi24@gmail.com"><span class="icon icon-envelope"></span><span class="text">bhamburevijayalaxmi24@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> This website is made with <i class="icon-heart color-danger" aria-hidden="true"></i></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="js/main.js"></script>
+  </body>
+</html>
