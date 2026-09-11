@@ -1,0 +1,16 @@
+# Exclude build/tooling files from Cloudflare Workers static asset upload
+node_modules
+**/node_modules
+.git
+.wrangler
+.cursor
+scss
+package.json
+package-lock.json
+prepros-6.config
+.DS_Store
+*.log
+debug-*
+_debug_*
+_fix_*
+.env

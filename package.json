@@ -1,23 +1,13 @@
 {
   "name": "vijayalaxmi_portfolio",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "Static portfolio site for Vijayalaxmi Bhambure",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vb23abo/Vijayalaxmi_Portfolio.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vb23abo/Vijayalaxmi_Portfolio/issues"
-  },
-  "homepage": "https://github.com/vb23abo/Vijayalaxmi_Portfolio#readme",
-  "description": "",
-  "dependencies": {
-    "puppeteer-core": "^25.10.0"
+  "devDependencies": {
+    "wrangler": "^4.131.0"
   }
 }

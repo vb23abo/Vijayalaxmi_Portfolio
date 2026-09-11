@@ -5,3 +5,6 @@ _debug_*.png
 _debug_*.js
 _fix_*.py
 package-lock.json
+.wrangler/
+.dev.vars
+.DS_Store
