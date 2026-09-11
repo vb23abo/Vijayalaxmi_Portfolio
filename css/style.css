@@ -9688,3 +9688,94 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+/* Mobile layout fixes */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; }
+
+body {
+  position: relative; }
+
+.owl-carousel,
+.owl-carousel .owl-stage-outer,
+#home-section.hero,
+.home-slider {
+  max-width: 100%;
+  overflow: hidden !important; }
+
+.owl-carousel.home-slider .slider-item .hero-btns {
+  margin-top: 1.5rem; }
+
+.owl-carousel.home-slider .slider-item .hero-btns .btn {
+  margin: 0.35rem 0.35rem 0.35rem 0;
+  white-space: normal; }
+
+@media (max-width: 991.98px) {
+  .owl-carousel.home-slider,
+  .owl-carousel.home-slider .slider-item,
+  .owl-carousel.home-slider .slider-item .slider-text {
+    height: 100vh;
+    min-height: 600px; }
+
+  .owl-carousel.home-slider .slider-item .overlay {
+    opacity: 0.55; }
+
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    padding: 0 0.5rem; }
+
+  .owl-carousel.home-slider .slider-item .slider-text h1 {
+    font-size: 34px; }
+
+  .owl-carousel.home-slider .slider-item .slider-text h2 {
+    font-size: 22px;
+    color: #fff; }
+
+  .about-info li span:first-child {
+    width: 100px;
+    flex-shrink: 0; }
+
+  .ftco-about ul.about-info {
+    max-width: 100%;
+    display: block; }
+
+  .ftco-about ul.about-info li.d-flex {
+    max-width: 100%;
+    flex-wrap: nowrap;
+    align-items: flex-start; }
+
+  .ftco-about ul.about-info li span {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal; }
+
+  .ftco-about ul.about-info li span:not(:first-child) {
+    width: calc(100% - 110px);
+    flex: 1 1 auto; }
+
+  .resume-wrap h6,
+  .resume-wrap p,
+  .resume-wrap li {
+    overflow-wrap: anywhere;
+    word-break: break-word; }
+
+  .ftco-about .img-about,
+  .ftco-about .col-md-6,
+  .ftco-about .row,
+  .ftco-about .container,
+  #about-section {
+    max-width: 100%;
+    overflow-x: hidden; }
+}
+
+@media (max-width: 575.98px) {
+  .owl-carousel.home-slider .slider-item .hero-btns .btn {
+    display: block;
+    width: 100%;
+    margin: 0.4rem 0; }
+
+  .owl-carousel.home-slider .slider-item .slider-text h1 {
+    font-size: 28px; }
+}

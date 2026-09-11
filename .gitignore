@@ -1,2 +1,7 @@
 node_modules/
 .env
+debug-*.log
+_debug_*.png
+_debug_*.js
+_fix_*.py
+package-lock.json
