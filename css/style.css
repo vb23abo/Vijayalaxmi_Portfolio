@@ -9870,14 +9870,23 @@ body {
   margin-bottom: 0;
   padding: 0 0.5rem; }
 
-.impact-note {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 14px;
-  line-height: 1.6;
-  max-width: 920px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1rem; }
+.impact-boxes .impact-box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.impact-boxes .impact-box .text strong.number {
+  font-size: 26px; }
+
+.impact-boxes .impact-box .text span {
+  font-size: 15px;
+  line-height: 1.45; }
+
+@media (max-width: 767.98px) {
+  .impact-boxes .counter-wrap {
+    margin-bottom: 16px; }
+}
 
 /* JobCompass project card logo treatment */
 #projects-section .project.img {
