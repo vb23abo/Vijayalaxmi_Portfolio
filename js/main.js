@@ -8,8 +8,8 @@
 	"use strict";
 
 	var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-	var isNarrowViewport = window.matchMedia('(max-width: 991.98px)').matches;
-	var preferNativeScroll = isTouchDevice || isNarrowViewport;
+	// Treat any touch device as mobile-scroll priority, even with "Request desktop site".
+	var preferNativeScroll = isTouchDevice;
 
 	// Stellar/Scrollax fight touch scrolling on phones (including "Desktop site" mode).
 	if (!preferNativeScroll) {
@@ -110,21 +110,17 @@
 	    dots: true,
 	    autoplayHoverPause: false,
 	    items: 1,
-	    // Full-height hero + touchDrag blocks vertical page scroll on phones.
-	    touchDrag: !preferNativeScroll,
-	    mouseDrag: !preferNativeScroll,
+	    // Never capture swipe on touch hardware (including "Request desktop site").
+	    touchDrag: !isTouchDevice,
+	    mouseDrag: !isTouchDevice,
 	    pullDrag: false,
 	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
 	    responsive:{
 	      0:{
-	        items:1,
-	        touchDrag: false,
-	        mouseDrag: false
+	        items:1
 	      },
 	      992:{
-	        items:1,
-	        touchDrag: true,
-	        mouseDrag: true
+	        items:1
 	      }
 	    }
 		});

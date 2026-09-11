@@ -4,6 +4,7 @@ debug-*.log
 _debug_*.png
 _debug_*.js
 _fix_*.py
+_apply_*.py
 package-lock.json
 .wrangler/
 .dev.vars
