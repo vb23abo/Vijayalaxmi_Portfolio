@@ -9690,12 +9690,15 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
 /* Mobile layout fixes */
-html, body {
+html {
   max-width: 100%;
-  overflow-x: hidden; }
+  overflow-x: clip; }
 
 body {
-  position: relative; }
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+  -webkit-overflow-scrolling: touch; }
 
 .owl-carousel,
 .owl-carousel .owl-stage-outer,
@@ -9703,6 +9706,13 @@ body {
 .home-slider {
   max-width: 100%;
   overflow: hidden !important; }
+
+/* Keep vertical page scroll usable over the hero on touch devices */
+.owl-carousel.home-slider,
+.owl-carousel.home-slider .owl-stage-outer,
+.owl-carousel.home-slider .owl-item,
+.owl-carousel.home-slider .slider-item {
+  touch-action: pan-y; }
 
 .owl-carousel.home-slider .slider-item .hero-btns {
   margin-top: 1.5rem; }
@@ -9715,8 +9725,9 @@ body {
   .owl-carousel.home-slider,
   .owl-carousel.home-slider .slider-item,
   .owl-carousel.home-slider .slider-item .slider-text {
-    height: 100vh;
-    min-height: 600px; }
+    height: 100svh;
+    min-height: 560px;
+    max-height: none; }
 
   .owl-carousel.home-slider .slider-item .overlay {
     opacity: 0.55; }
@@ -9730,6 +9741,12 @@ body {
   .owl-carousel.home-slider .slider-item .slider-text h2 {
     font-size: 22px;
     color: #fff; }
+
+  .ftco-navbar-light .navbar-collapse {
+    background: rgba(0, 0, 0, 0.95);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem; }
 
   .about-info li span:first-child {
     width: 100px;
@@ -9767,7 +9784,7 @@ body {
   .ftco-about .container,
   #about-section {
     max-width: 100%;
-    overflow-x: hidden; }
+    overflow-x: clip; }
 }
 
 @media (max-width: 575.98px) {

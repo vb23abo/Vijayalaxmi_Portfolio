@@ -7,14 +7,22 @@
 
 	"use strict";
 
-	$(window).stellar({
-    responsive: true,
-    parallaxBackgrounds: true,
-    parallaxElements: true,
-    horizontalScrolling: false,
-    hideDistantElements: false,
-    scrollProperty: 'scroll'
-  });
+	var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+	var isNarrowViewport = window.matchMedia('(max-width: 991.98px)').matches;
+	var preferNativeScroll = isTouchDevice || isNarrowViewport;
+
+	// Stellar/Scrollax fight touch scrolling on phones (including "Desktop site" mode).
+	if (!preferNativeScroll) {
+		$(window).stellar({
+			responsive: true,
+			parallaxBackgrounds: true,
+			parallaxElements: true,
+			horizontalScrolling: false,
+			hideDistantElements: false,
+			scrollProperty: 'scroll'
+		});
+		$.Scrollax();
+	}
 
 
 	var fullHeight = function() {
@@ -37,10 +45,6 @@
 	};
 	loader();
 
-	// Scrollax
-   $.Scrollax();
-
-
 
    // Burger Menu
 	var burgerMenu = function() {
@@ -62,6 +66,14 @@
 	};
 	burgerMenu();
 
+	var closeMobileNav = function() {
+		var $nav = $('#ftco-nav');
+		if ($nav.hasClass('show') || $nav.is(':visible')) {
+			$nav.collapse('hide');
+		}
+		$('.js-fh5co-nav-toggle').removeClass('active').attr('aria-expanded', 'false');
+	};
+
 
 	var onePageClick = function() {
 
@@ -70,12 +82,16 @@
 	    event.preventDefault();
 
 	    var href = $.attr(this, 'href');
+	    var $target = $(href);
+	    if (!$target.length) {
+	    	return;
+	    }
 
-	    $('html, body').animate({
-	        scrollTop: $($.attr(this, 'href')).offset().top - 70
-	    }, 500, function() {
-	    	// window.location.hash = href;
-	    });
+	    closeMobileNav();
+
+	    $('html, body').stop(true).animate({
+	        scrollTop: $target.offset().top - 70
+	    }, 500);
 		});
 
 	};
@@ -91,18 +107,24 @@
 	    animateOut: 'fadeOut',
 	    animateIn: 'fadeIn',
 	    nav:false,
+	    dots: true,
 	    autoplayHoverPause: false,
 	    items: 1,
+	    // Full-height hero + touchDrag blocks vertical page scroll on phones.
+	    touchDrag: !preferNativeScroll,
+	    mouseDrag: !preferNativeScroll,
+	    pullDrag: false,
 	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
 	    responsive:{
 	      0:{
-	        items:1
+	        items:1,
+	        touchDrag: false,
+	        mouseDrag: false
 	      },
-	      600:{
-	        items:1
-	      },
-	      1000:{
-	        items:1
+	      992:{
+	        items:1,
+	        touchDrag: true,
+	        mouseDrag: true
 	      }
 	    }
 		});
@@ -130,7 +152,6 @@
 
 
 	$('#dropdown04').on('show.bs.dropdown', function () {
-	  console.log('show');
 	});
 
 	// scroll
@@ -185,7 +206,6 @@
 				$('.number').each(function(){
 					var $this = $(this),
 						num = $this.data('number');
-						console.log(num);
 					$this.animateNumber(
 					  {
 					    number: num,
