@@ -9837,17 +9837,17 @@ body {
 
 .hero-cta-wrap {
   position: relative;
-  z-index: 5;
-  margin-top: -4.5rem;
-  padding-bottom: 2.5rem; }
+  z-index: 2;
+  margin-top: 0;
+  padding: 1.75rem 1rem 2.5rem;
+  background: #000; }
 
 .hero-cta-wrap .hero-btns .btn {
   margin: 0.35rem; }
 
 @media (max-width: 575.98px) {
   .hero-cta-wrap {
-    margin-top: -2rem;
-    padding: 0 1rem 2rem; }
+    padding: 1.25rem 1rem 2rem; }
 
   .hero-cta-wrap .hero-btns .btn {
     display: block;
