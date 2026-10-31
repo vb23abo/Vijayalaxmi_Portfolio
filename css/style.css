@@ -9888,7 +9888,75 @@ body {
     margin-bottom: 16px; }
 }
 
-/* JobCompass project card logo treatment */
+/* JobCompass project card: light logo on a light card, readable label on small screens */
 #projects-section .project.img {
   min-height: 320px;
   background-repeat: no-repeat; }
+
+#projects-section .jc-card {
+  background-color: #f7f8fa;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; }
+
+#projects-section .jc-card .text h3 {
+  color: #111; }
+
+#projects-section .jc-card .text span {
+  color: #1a1a1a; }
+
+@media (max-width: 767.98px) {
+  #projects-section .jc-card {
+    background-size: 188px auto;
+    background-position: center 0;
+    background-color: #f7f8fa; }
+  #projects-section .jc-card .overlay {
+    opacity: 1;
+    background: linear-gradient(to top, #111 0, #111 132px, rgba(17, 17, 17, 0) 132px); }
+  #projects-section .jc-card .text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px; }
+  #projects-section .jc-card .text h3 {
+    margin-bottom: 4px;
+    color: #fff; }
+  #projects-section .jc-card .text span {
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 1.35; } }
+
+.jc-logo {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 0.25rem auto 0;
+  background: #fff;
+  border-radius: 6px; }
+
+.about-author .bio {
+  flex: 0 0 112px;
+  width: 112px; }
+
+.about-author .bio img {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 4px;
+  margin-bottom: 0; }
+
+.about-author .desc {
+  flex: 1 1 auto;
+  min-width: 0; }
+
+@media (max-width: 575.98px) {
+  .about-author.d-flex {
+    flex-direction: column; }
+  .about-author .bio {
+    margin-right: 0 !important;
+    margin-bottom: 1rem; } }

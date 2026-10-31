@@ -11,7 +11,7 @@
     <title>JobCompass — Vijayalaxmi Bhambure</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="JobCompass — AI-powered career platform for UK tech job seekers. Case study by Vijayalaxmi Bhambure.">
+    <meta name="description" content="JobCompass — AI career platform for UK tech job seekers. Direct career-site discovery, visa sponsorship intelligence, and human-in-the-loop applications. Case study by Vijayalaxmi Bhambure.">
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
@@ -70,49 +70,60 @@
         <div class="row">
           <div class="col-lg-8 ftco-animate">
             <h2 class="mb-3">AI-Powered Career Platform for UK Tech Job Seekers</h2>
-            <p class="mb-4"><strong>February 2026 – Present</strong> · Personal project</p>
+            <p class="mb-4"><strong>September 2025 – Present</strong> · Personal product · Glasgow</p>
             <p>
-              JobCompass helps UK tech job seekers discover relevant roles, score matches against their profile,
-              and move through applications with safer automation. I designed it as a hybrid system: autonomous AI agents
-              handle unpredictable external sites, while deterministic pipelines own auth, matching, tracking, and analytics.
+              JobCompass is the career product I am building for UK tech professionals and graduates, including international candidates who need a visa sponsor.
+              It runs one loop: <strong>Resume → Discover → Match → Apply → Prepare → Track</strong>.
+              Roles come from company career sites rather than LinkedIn or Indeed, and each listing is tagged with visa sponsorship intelligence from the UK Home Office register of licensed sponsors.
             </p>
             <p>
-              <img src="images/project-1.jpg" alt="JobCompass project visual placeholder" class="img-fluid">
+              <img src="images/JobCompass_Logo.png" alt="JobCompass logo: a compass needle through a letter C, with the wordmark JobCompass-VB" class="jc-logo">
             </p>
             <p class="mt-3">
-              <a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener" class="btn btn-primary py-3 px-4">View on GitHub</a>
-              <a href="blog-jobcompass-architecture.html" class="btn btn-outline-primary py-3 px-4">Architecture blog</a>
+              <a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener" class="btn btn-primary py-3 px-4 mr-2 mb-2">View on GitHub</a>
+              <a href="blog-jobcompass-architecture.html" class="btn btn-outline-primary py-3 px-4 mb-2">Architecture blog</a>
             </p>
 
             <h2 class="mb-3 mt-5">Problem</h2>
             <p>
-              Job search across company career sites is fragmented. Listings change often, ATS forms differ by employer,
-              and fully autonomous apply-bots create reliability and compliance risk. JobCompass focuses on assisted workflows
-              that stay useful without hard-coding every site or collecting unnecessary sensitive data.
+              A UK tech search is split across hundreds of career sites. Sponsorship status is hard to see, so international graduates waste applications on employers who cannot hire them.
+              ATS filters reject weak resumes with no feedback. Applying one form at a time does not improve the response rate, and interview prep starts too late.
+              JobCompass keeps those steps in one place, and it keeps automation behind human gates instead of an unsupervised apply-bot.
             </p>
 
-            <h2 class="mb-3 mt-5">Architecture at a glance</h2>
+            <h2 class="mb-3 mt-5">What it does</h2>
+            <ul>
+              <li><strong>Resume engine.</strong> A CV upload seeds the profile. Skills are grouped, experience bullets are checked for a measurable impact, and a re-upload shows a structured diff. Claude drafts an editable summary, and an ATS score covers parsability, keywords, content, formatting, and completeness.</li>
+              <li><strong>Direct discovery.</strong> A Playwright agent collects roles from company career websites, with per-domain rate limits, circuit breakers, change detection, and deduplication. Salary is read from the posting when it is listed, and estimated with a confidence level when it is not.</li>
+              <li><strong>Three boards.</strong> Graduate schemes, sponsored roles ranked by recent sponsorship activity, and non-sponsored roles for UK citizens and settled-status holders. Filters cover recency, distance, salary, and visa route.</li>
+              <li><strong>Match scoring.</strong> Semantic similarity, keyword overlap, and seniority fit are materialised and refreshed when the resume or a listing changes, so job tables stay fast.</li>
+              <li><strong>AutoApplier.</strong> Reads ATS forms at runtime. It recognises Greenhouse, Lever, Workday, and iCIMS, and falls back to generic field detection for other layouts. It pauses for CAPTCHA, low-confidence fields, salary, notice period, and right to work. A match-score gate (default 65%) and a daily cap limit volume.</li>
+              <li><strong>Tracker and prep.</strong> Applications move through a status lifecycle. Gmail can update that status from recruiter mail, follow-up drafts wait for approval, and interview prep falls back to a template if the model is unavailable.</li>
+            </ul>
+
+            <h2 class="mb-3 mt-5">Architecture</h2>
             <p>
-              Tasks that must adapt to external sites (scraping, form reading, research) run as agents.
-              Predictable internal work (authentication, scoring materialisation, application tracking, analytics)
-              stays in deterministic FastAPI services backed by PostgreSQL, Redis, and Celery.
+              The rule is simple: a module that talks to the open web is an agent. A module that works on stored product data is a deterministic pipeline.
+              Scraping, AutoApplier, and company research adapt when sites change. Auth, resume processing, match materialisation, the tracker, and analytics stay in FastAPI services with PostgreSQL as the source of truth.
             </p>
             <ul>
-              <li><strong>Scraper agent:</strong> Playwright-based ingestion with per-domain rate limiting, circuit breakers, and change detection.</li>
-              <li><strong>Application agent:</strong> human-in-the-loop ATS automation that reads forms at runtime—no hard-coded site mappings—with server-side thresholds, daily caps, and pause gates for low-confidence or sensitive fields.</li>
-              <li><strong>Match pipeline:</strong> materialised scoring (semantic, keyword, and seniority weighted) with delta re-computation when new data arrives, instead of full-table scoring at query time.</li>
-              <li><strong>Interview prep:</strong> LLM-based generator with a template fallback for reliability.</li>
-              <li><strong>Auth &amp; privacy:</strong> OAuth binding and phone verification instead of identity-verification approaches that risk GDPR special-category data.</li>
+              <li><strong>Agents:</strong> Playwright scraper, human-in-the-loop AutoApplier, and a research agent that enriches sponsorship history and salary signals.</li>
+              <li><strong>Pipelines:</strong> Auth.js sessions (Google or GitHub OAuth, or email and password) with short-lived JWTs in httpOnly cookies, the four-phase resume engine, materialised match scores in PostgreSQL with pgvector, the application state machine, and analytics.</li>
+              <li><strong>Sponsorship data:</strong> a weekly parse of the public Home Office register of licensed sponsors, joined onto each job as a deterministic pipeline. The sponsored board can be ranked by recent sponsorship activity.</li>
+              <li><strong>Privacy:</strong> resumes live in Cloudflare R2 and profile data in PostgreSQL. The API can export or delete a user’s data. Auth stays on standard OAuth and email login, away from identity checks that would pull GDPR special-category data.</li>
             </ul>
 
             <h2 class="mb-3 mt-5">Stack</h2>
-            <p>Python, FastAPI, Next.js, PostgreSQL, Redis, Celery, Playwright</p>
+            <p>Python, FastAPI, Next.js, TypeScript, PostgreSQL, pgvector, Redis, Celery, Playwright, Anthropic Claude, OpenAI embeddings, Cloudflare R2</p>
 
-            <h2 class="mb-3 mt-5">What I’m sharing publicly</h2>
+            <h2 class="mb-3 mt-5">What is public</h2>
             <p>
-              The private implementation stays closed. The public repository
+              The implementation stays private. The public repository
               <a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener">JobCompass-Public</a>
-              will host demos, visuals, and write-ups as the project matures.
+              holds the product write-up: the README, the
+              <a href="https://github.com/vb23abo/JobCompass-Public/blob/main/JobCompass_PRD.md" target="_blank" rel="noopener">PRD</a>,
+              and the
+              <a href="https://github.com/vb23abo/JobCompass-Public/blob/main/JobCompass_TRD.md" target="_blank" rel="noopener">TRD</a>.
             </p>
 
             <div class="tag-widget post-tag-container mb-5 mt-5">
@@ -120,9 +131,9 @@
                 <a href="#" class="tag-cloud-link">FastAPI</a>
                 <a href="#" class="tag-cloud-link">Next.js</a>
                 <a href="#" class="tag-cloud-link">Playwright</a>
-                <a href="#" class="tag-cloud-link">Celery</a>
+                <a href="#" class="tag-cloud-link">pgvector</a>
                 <a href="#" class="tag-cloud-link">AI Agents</a>
-                <a href="#" class="tag-cloud-link">GDPR</a>
+                <a href="#" class="tag-cloud-link">Sponsorship</a>
               </div>
             </div>
             
@@ -133,8 +144,8 @@
               <div class="desc">
                 <h3>Vijayalaxmi Bhambure</h3>
                 <p>
-                  Software engineer and AI product developer based in Glasgow. Building JobCompass while exploring
-                  full-stack systems that combine reliable backend pipelines with careful agent automation.
+                  Software engineer and AI product developer based in Glasgow. Building JobCompass as a direct-to-source
+                  job search product: reliable backend pipelines, sponsorship data, and agent automation with human gates.
                 </p>
               </div>
             </div>
@@ -145,6 +156,8 @@
             	<h3 class="heading-sidebar">Project links</h3>
               <ul class="categories">
                 <li><a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener">GitHub (public hub)</a></li>
+                <li><a href="https://github.com/vb23abo/JobCompass-Public/blob/main/JobCompass_PRD.md" target="_blank" rel="noopener">Product requirements</a></li>
+                <li><a href="https://github.com/vb23abo/JobCompass-Public/blob/main/JobCompass_TRD.md" target="_blank" rel="noopener">Technical requirements</a></li>
                 <li><a href="blog-jobcompass-architecture.html">Architecture blog post</a></li>
                 <li><a href="index.html#projects-section">All projects</a></li>
               </ul>
@@ -156,18 +169,21 @@
                 <a href="#" class="tag-cloud-link">Python</a>
                 <a href="#" class="tag-cloud-link">FastAPI</a>
                 <a href="#" class="tag-cloud-link">Next.js</a>
+                <a href="#" class="tag-cloud-link">TypeScript</a>
                 <a href="#" class="tag-cloud-link">PostgreSQL</a>
+                <a href="#" class="tag-cloud-link">pgvector</a>
                 <a href="#" class="tag-cloud-link">Redis</a>
                 <a href="#" class="tag-cloud-link">Celery</a>
                 <a href="#" class="tag-cloud-link">Playwright</a>
+                <a href="#" class="tag-cloud-link">Claude</a>
               </div>
             </div>
 
             <div class="sidebar-box ftco-animate">
               <h3 class="heading-sidebar">Highlights</h3>
               <p>
-                Hybrid agents + pipelines, runtime ATS form reading, materialised match scores,
-                and privacy-aware authentication for a UK tech job-search product.
+                Direct career-site discovery, Home Office sponsorship tags, materialised match scores,
+                and a human-in-the-loop AutoApplier for UK tech job search.
               </p>
             </div>
           </div>

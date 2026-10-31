@@ -116,8 +116,8 @@
             <h2 class="mb-3 mt-5">Reliability and privacy as product features</h2>
             <p>
               Interview prep uses an LLM with a template-based fallback so a model outage does not blank the feature.
-              For identity, I deliberately avoided approaches that pull GDPR special-category data and instead used
-              OAuth binding plus phone verification. Privacy constraints shaped the architecture as much as latency did.
+              Auth stays outside the agent loop: Auth.js with Google or GitHub OAuth, or email and password, and short-lived JWTs in httpOnly cookies.
+              Resumes live in object storage, and a user can export or delete their data. That keeps the product off identity checks that would pull GDPR special-category data.
             </p>
 
             <h2 class="mb-3 mt-5">What I’d tell another builder</h2>
@@ -128,7 +128,8 @@
               <li>Ship LLM features with a non-LLM fallback from day one.</li>
             </ul>
             <p>
-              Demo clips, diagrams, and updates will land in the public hub:
+              The same split applies to sponsorship data: parsing the Home Office register is a scheduled pipeline, while reading a career site that just changed layout is an agent.
+              The product write-up, PRD, and TRD are in the public hub:
               <a href="https://github.com/vb23abo/JobCompass-Public" target="_blank" rel="noopener">github.com/vb23abo/JobCompass-Public</a>.
             </p>
 

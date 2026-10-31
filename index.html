@@ -242,13 +242,14 @@
     					<span class="position">JobCompass-VB · Self-employed · Glasgow, Scotland, United Kingdom (Remote)</span>
 						<p class="mt-4">
 							<ul type="disc">
-							<li>Independently architecting and developing JobCompass, an AI-powered career platform designed to help UK tech professionals and graduates discover, evaluate, apply to, and track relevant opportunities.</li>
+							<li>Independently architecting and developing JobCompass, an AI-powered career platform for UK tech professionals and graduates. The product runs one loop: resume, discover, match, apply, prepare, and track.</li>
 							<li>Designed a hybrid architecture that uses autonomous AI agents for unpredictable external web interactions while keeping authentication, job matching, application tracking, and analytics within deterministic backend pipelines.</li>
-							<li>Built a Playwright-based job-scraping agent that collects roles directly from company career websites, with domain-level rate limiting, circuit breakers, change detection, deduplication, and batch processing.</li>
+							<li>Built a Playwright-based job-scraping agent that collects roles directly from company career websites rather than aggregators, with domain-level rate limiting, circuit breakers, change detection, deduplication, and batch processing.</li>
+							<li>Joined each listing to the UK Home Office register of licensed sponsors so the graduate, sponsored, and non-sponsored boards show whether an employer is licensed to sponsor, and the sponsored board can be ranked by sponsorship activity.</li>
 							<li>Developed an AI-powered job matching engine combining semantic similarity, keyword relevance, and seniority signals, with materialised match scores and incremental recomputation for newly ingested roles.</li>
-							<li>Developed a human-in-the-loop application automation agent capable of reading ATS forms at runtime without hard-coded site mappings, with confidence thresholds, daily application limits, and mandatory review gates for sensitive fields.</li>
-							<li>Implemented core platform services including resume/profile management, sponsorship-aware job boards, application tracking, interview preparation, analytics, OAuth authentication, and Gmail-based application status tracking.</li>
-							<li>Built and integrated the platform using Python, FastAPI, Next.js, PostgreSQL, Redis, Celery, Playwright, and LLM-based services, while using AI coding assistants alongside automated testing and manual code review.</li>
+							<li>Developed AutoApplier, a human-in-the-loop application agent that reads ATS forms at runtime, recognises Greenhouse, Lever, Workday, and iCIMS, and falls back to generic field detection for other layouts, with confidence thresholds, a daily cap, and mandatory review for salary, notice period, and right-to-work fields.</li>
+							<li>Built a guided resume engine with ATS scoring, categorised skills, impact-checked experience bullets, and re-upload diffs, plus application tracking, interview preparation, analytics, OAuth, and Gmail-based status updates.</li>
+							<li>Built and integrated the platform using Python, FastAPI, Next.js, PostgreSQL with pgvector, Redis, Celery, Playwright, and Claude, while using AI coding assistants alongside automated testing and manual code review.</li>
 							<li>Own the full product development lifecycle, including system architecture, backend and frontend development, database design, AI/agent integration, testing, security considerations, and product iteration.</li>
 							</ul>
 						</p>
@@ -365,7 +366,7 @@
 							</span>
 							<div class="desc">
 								<h3 class="mb-3">AI Product Development</h3>
-								<p>Designing agent-assisted products like JobCompass—LLMs, transformers, and human-in-the-loop workflows with reliable fallbacks.</p>
+								<p>Designing agent-assisted products like JobCompass—direct job discovery, sponsorship data, and human-in-the-loop workflows with reliable fallbacks.</p>
 							</div>
 						</div>
 					</div>
@@ -491,11 +492,11 @@
         </div>
     		<div class="row">
     			<div class="col-md-8">
-    				<a href="jobcompass.html" class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/JobCompass_Logo.png); background-size: contain; background-color: #111;">
+    				<a href="jobcompass.html" class="project img ftco-animate d-flex justify-content-center align-items-center jc-card" style="background-image: url(images/JobCompass_Logo.png);">
     					<div class="overlay"></div>
 	    				<div class="text text-center p-4">
 	    					<h3>JobCompass</h3>
-	    					<span>AI Career Platform · FastAPI · Next.js · Playwright</span>
+	    					<span>UK tech job search · Sponsorship intelligence · FastAPI</span>
 	    				</div>
     				</a>
     			</div>
